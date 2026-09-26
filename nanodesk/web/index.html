@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>nanoDesk — every app you have, one click away</title>
+<meta name="description" content="One window that finds the apps on your computer and starts them. No code, no terminal, no accounts.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧭</text></svg>">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="page">
+  <!-- ------------------------------------------------------------- header -->
+  <header class="top">
+    <div class="brand">
+      <div class="brand-mark">🧭</div>
+      <div>
+        <h1>nanoDesk</h1>
+        <p class="tagline">
+          Every app you have, one click away. nanoDesk finds the apps already on this computer,
+          says what each one does, and starts the one you point at — no terminal, ever.
+        </p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button class="btn" id="rescanBtn" title="Look for apps again">↻ Look again</button>
+    </div>
+  </header>
+
+  <!-- --------------------------------------------------------------- apps -->
+  <section class="panel">
+    <div class="panel-head">
+      <h2>Your apps</h2>
+      <span class="count" id="appsCount"></span>
+    </div>
+    <div class="grid" id="appGrid"></div>
+    <div class="empty" id="emptyState" hidden></div>
+  </section>
+
+  <div class="two-up">
+    <!-- ---------------------------------------------------------- folders -->
+    <section class="panel">
+      <div class="panel-head"><h2>Your apps live in</h2></div>
+      <p class="help">
+        These are the folders nanoDesk looks in. If an app you have is missing from the list above,
+        add the folder it is in: type the folder's full path — the text in your file manager's
+        address bar, for example <span class="mono">C:\Users\you\Downloads\apps</span> — and press
+        <strong>Add this folder</strong>. Folders you add are remembered.
+      </p>
+      <div class="chips" id="folderChips"></div>
+      <form class="add" id="addFolderForm" autocomplete="off">
+        <input type="text" id="folderInput" spellcheck="false"
+               placeholder="Paste a folder path here, for example  C:\Users\you\Downloads\apps">
+        <button class="btn primary" type="submit" id="addFolderBtn">Add this folder</button>
+      </form>
+      <div class="note" id="folderNote" hidden></div>
+    </section>
+
+    <!-- --------------------------------------------------------- computer -->
+    <section class="panel">
+      <div class="panel-head"><h2>This computer</h2></div>
+      <p class="help">
+        What nanoDesk can see from here. Nothing is installed, changed or sent anywhere by this page.
+      </p>
+      <div class="rows" id="computerPanel"></div>
+    </section>
+  </div>
+</div>
+
+<div class="toasts" id="toasts"></div>
+<script src="/app.js"></script>
+</body>
+</html>
