@@ -662,7 +662,10 @@ class TestServer(ServerTestCase):
         self.addCleanup(shutil.rmtree, second, True)
         added = self.post("/api/folders", {"path": second})
         self.assertTrue(added["ok"], added)
-        self.assertIn(second.lower(), [entry["path"].lower() for entry in added["watched"]])
+        # Windows hands out 8.3 short names (RUNNER~1); nanoDesk stores the
+        # resolved path. Compare resolved on both sides.
+        self.assertIn(os.path.realpath(second).lower(),
+                      [os.path.realpath(entry["path"]).lower() for entry in added["watched"]])
         # Adding it twice is not an error, it just says so.
         again = self.post("/api/folders", {"path": second})
         self.assertTrue(again["already_there"])
@@ -776,7 +779,7 @@ class TestServer(ServerTestCase):
         self.assertIn("nanoDesk", text)
         self.assertIn("Python", text)
         self.assertIn("FakeApp", text)
-        self.assertIn(self.workdir, text)
+        self.assertIn(os.path.realpath(self.workdir), text)
 
 
 if __name__ == "__main__":
